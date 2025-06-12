@@ -1,0 +1,3 @@
+[submodule "cuento/themes/smigle"]
+	path = cuento/themes/smigle
+	url = https://gitlab.com/ian-s-mcb/smigle-hugo-theme.git
