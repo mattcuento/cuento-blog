@@ -39,3 +39,6 @@ params:
     - name: LinkedIn
       url: https://www.linkedin.com/in/mcuento/
   subtitle: 'Thoughts and learnings on my dive into the distributed systems world.'
+caches:
+  images:
+    dir:  :cacheDir/images
