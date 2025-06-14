@@ -16,24 +16,24 @@
       <description></description>
     </item>
     <item>
-      <title>Css</title>
-      <link>https://example.org/tags/css/</link>
-      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/css/</guid>
+      <title>Databases</title>
+      <link>https://example.org/tags/databases/</link>
+      <pubDate>Thu, 12 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/databases/</guid>
       <description></description>
     </item>
     <item>
-      <title>Html</title>
-      <link>https://example.org/tags/html/</link>
-      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/html/</guid>
+      <title>Distributed Systems</title>
+      <link>https://example.org/tags/distributed-systems/</link>
+      <pubDate>Thu, 12 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/distributed-systems/</guid>
       <description></description>
     </item>
     <item>
-      <title>Markdown</title>
-      <link>https://example.org/tags/markdown/</link>
-      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/markdown/</guid>
+      <title>Projects</title>
+      <link>https://example.org/tags/projects/</link>
+      <pubDate>Thu, 12 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/projects/</guid>
       <description></description>
     </item>
   </channel>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content=""
+  />
+  
+    
+      <title>Building a Database Management System (DBMS) From Scratch Pt. 1 | Cuento&#39;s Blog</title>
+    
+  
+  <link rel="stylesheet" href="/css/reset.css"/>
+  <link rel="stylesheet" href="/css/font.css"/>
+  <link rel="stylesheet" href="/css/smigle.css"/>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+  <body>
+    <div id="root">
+      <header>
+  <div id="brand">
+    <a class="icon-link" href="https://example.org/">
+      <img
+        class="icon"
+        src="/images/brandIcon.svg"
+      />
+    </a>
+    <div class="text">
+      <a href="https://example.org/"><h1>Cuento&#39;s Blog</h1></a>
+      <h3>Thoughts and learnings on my dive into the distributed systems world.</h3>
+    </div>
+  </div>
+  <nav>
+    
+      
+        
+        <a href="/"><b>Home</b></a>
+      
+         | 
+        <a href="/about/"><b>About</b></a>
+      
+         | 
+        <a href="/posts/"><b>Posts</b></a>
+      
+         | 
+        <a href="/tags/"><b>Tags</b></a>
+      
+         | 
+        <a href="/index.xml"><b>RSS</b></a>
+      
+    
+  </nav>
+  <hr />
+</header>
+
+      <div id="content">
+        
+  <main>
+    <article>
+      <h1 class="title">Building a Database Management System (DBMS) From Scratch Pt. 1</h1>
+      
+      <div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>06-12-2025</time>
+    
+    
+  </strong>
+  <span> • 530 words</span>
+  <span> • 3 minute read</span>
+  
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/databases">databases</a>, 
+        <a href="/tags/distributed-systems">distributed systems</a>, 
+        <a href="/tags/projects">projects</a>
+    </div>
+  
+</div>
+
+      <div class="content"><h1 id="the-vision">The Vision</h1>
+<p>My college&rsquo;s motto was &ldquo;Learn By Doing&rdquo;. What&rsquo;s more fitting to learn about database internals than building a DBMS from scratch? Crash recovery, sharding, replication, storage, and query processing &ndash; I&rsquo;m hoping to build basic implementations of these features wrapped into a single DBMS.</p>
+<p>What I think is the most novel piece of this project, is the idea of composability. One of my main goals here is to make different components interchangeable and extensible. Want to see what the trade-offs are of using B-trees vs. LSM-trees? Want to know the consistency tradeoffs of synchronous replication vs. asynchronous replication?</p>
+<p>The vision here is to build a system that allows one to simulate different use cases and failure scenarios under different conditions.</p>
+<h1 id="the-requirements">The Requirements</h1>
+<p>I don&rsquo;t exactly have a customer except my own curiosity, so, what <em>am</em> I curious to get out of this project?</p>
+<p>Well, one of my largest interests is distributed systems. This project will be a distributed DBMS <em>by default</em>. We could just go ahead and say &ldquo;I&rsquo;m prioritizing for availability&rdquo; here.</p>
+<p><img src="/distributed-systems.jpg" alt="Distributed Systems"></p>
+<p>I also don&rsquo;t want this project to have a massive barrier to entry. I&rsquo;m most interested in the distributed systems trade-offs (<em>&ldquo;what consistency challenges do I face with this replication model?&rdquo;</em>) and the low-level details (<em>&ldquo;Do I lose read-ahead caching when I use Direct I/O?&rdquo;</em>), but not so much the in-between.</p>
+<p>In my mind, making this DBMS key-value based is a good starting point to trim some extra scope (e.g. schema management). Overall, I think the requirements can be summarized as follows:</p>
+<ul>
+<li><strong>Distributed</strong>: The DBMS should be able to run on multiple nodes and handle distributed reads/writes and replication.</li>
+<li><strong>Key-Value Store</strong>: The DBMS should be a key-value store, we will avoid schema management for now.</li>
+<li><strong>Configurable</strong>: The DBMS should allow for different storage engines, replication models, and consistency levels to be swapped in and out easily.</li>
+<li><strong>Failure Simulation</strong>: Aside from writing the DBMS itself, we should create tooling to simulate real-world failures to test the trade-offs of different architectural configurations.</li>
+</ul>
+<h1 id="the-plan">The Plan</h1>
+<p>The idea of building a DBMS from scratch is daunting, but the key to how I break up projects like this is thinking about my goals and the components I need to build. What feature gives me the most bang for my buck in terms of effort?</p>
+<p>Given this is a D(atabase)BMS, I think it makes sense to begin with the database itself. We also need to build the foundation that can easily configure and launch a deployment. Here are the questions I want to answer first.</p>
+<ul>
+<li><strong>Deployment Manager</strong>: How can I spin up other nodes in a cluster? How do I determine health? How will nodes connect? What mechanism do we use to configure a deployment?</li>
+<li><strong>Storage Engine</strong>: Do we want durability? What data structures will we use to store data? Will we support indexes? Do we prioritize read or write performance?</li>
+<li><strong>Crash Recovery</strong>: How do we ensure that the database can recover from crashes? What logging mechanisms do we need?</li>
+</ul>
+<h1 id="whats-next">What&rsquo;s Next?</h1>
+<p>Now that we have some definition, it&rsquo;s time to build! In the next post, we&rsquo;ll explore how we manage deployments and the basics of a storage engine. Stay tuned!</p>
+</div>
+    </article>
+  </main>
+
+      </div>
+      <footer>
+  <hr />
+  
+    <p id="social">
+      Find me around the web:
+      <br />
+      
+        
+        <a href="https://github.com/mattcuento">Github</a>
+      
+         | 
+        <a href="https://www.linkedin.com/in/mcuento/">LinkedIn</a>
+      
+    </p>
+  
+  <p class="copyright">
+    Copyright © 2025
+    <a href="https://example.org/"><strong>Matt Cuento</strong></a>.
+    This work is licensed under the
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.
+  </p>
+  <p class="builtWith">
+    Built with
+    <a href="http://www.gohugo.io/">Hugo</a>,
+    using the theme
+    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>,
+    which was influenced by the theme
+    <a href="https://github.com/sumnerevans/smol">smol</a>.
+  </p>
+</footer>
+
+    </div>
+  </body>
+</html>
